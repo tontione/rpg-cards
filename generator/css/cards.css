@@ -136,8 +136,7 @@
     margin-bottom: 0.0em;
     line-height: 18px;
     font-family: 'Noto Sans', 'Myriad Pro', Calibri, Helvetica, Arial, sans-serif;
-    font-size: 10pt;
-    font-style: italic;
+    font-size: 12pt;
 }
 .card-picture {
     height: 80px;
@@ -259,4 +258,12 @@
     margin-bottom: 0;
     margin-top: 0;
     font-size: inherit;
+}
+
+.italic {
+        font-style: italic;
+}
+
+.bold {
+        font-weight: bold;
 }

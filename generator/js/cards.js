@@ -106,7 +106,8 @@ function card_element_icon(card_data, options) {
 
 function card_element_subtitle(params, card_data, options) {
     var subtitle = params[0] || "";
-    return '<div class="card-element card-subtitle">' + subtitle + '</div>';
+    var varstyle = params[1] || "italic";
+    return '<div class="card-element card-subtitle  '+varstyle+'" >' + subtitle + '</div>';
 }
 
 function card_element_inline_icon(params, card_data, options) {
@@ -117,10 +118,19 @@ function card_element_inline_icon(params, card_data, options) {
     return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + '"></div>';
 }
 
+function card_element_contenticon(params, card_data, options) {
+    var icon = params[0] || "";
+    var size = params[1] || "40";
+    var align = params[2] || "center";
+    var color = "red" || card_data_color_front(card_data, options) ;
+    return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + '"></div>';
+}
+
 function card_element_picture(params, card_data, options) {
     var url = params[0] || "";
     var height = params[1] || "";
-    return '<div class="card-element card-picture" style ="background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center;background-repeat: no-repeat; height:' + height + 'px"></div>';
+     var align = params[2] || "center";
+    return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center;background-repeat: no-repeat; height:' + height + 'px"></div>';
 }
 
 function card_element_ruler(params, card_data, options) {
@@ -181,8 +191,11 @@ function card_element_description(params, card_data, options) {
 
 function card_element_text(params, card_data, options) {
     var result = "";
+    var color = params[1] ? params[1] : "black";
+    var style_color = card_generate_textcolor_style(color, options);
+
     result += '<div class="card-element card-description-line">';
-    result += '   <p class="card-p card-description-text">' + params[0] + '</p>';
+    result += '   <p class="card-p card-description-text" '+ style_color +'>' + params[0] + '</p>';
     result += '</div>';
     return result;
 }
@@ -214,26 +227,33 @@ function card_element_dndstats(params, card_data, options) {
         } else {
             mod = "" + mod;
         }
-        mods[i] = "&nbsp;(" + mod + ")";
+       // mods[i] = "&nbsp;(" + mod + ")";
+       mods[i] = "&nbsp;" + mod + "";
     }
 
     var result = "";
     result += '<table class="card-stats">';
     result += '    <tbody><tr>';
-    result += '      <th class="card-stats-header">STR</th>';
+    result += '      <th class="card-stats-header">FOR</th>';
     result += '      <th class="card-stats-header">DEX</th>';
     result += '      <th class="card-stats-header">CON</th>';
     result += '      <th class="card-stats-header">INT</th>';
-    result += '      <th class="card-stats-header">WIS</th>';
+    result += '      <th class="card-stats-header">SAG</th>';
     result += '      <th class="card-stats-header">CHA</th>';
     result += '    </tr>';
     result += '    <tr>';
-    result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>';
-    result += '      <td class="card-stats-cell">' + stats[1] + mods[1] + '</td>';
-    result += '      <td class="card-stats-cell">' + stats[2] + mods[2] + '</td>';
-    result += '      <td class="card-stats-cell">' + stats[3] + mods[3] + '</td>';
-    result += '      <td class="card-stats-cell">' + stats[4] + mods[4] + '</td>';
-    result += '      <td class="card-stats-cell">' + stats[5] + mods[5] + '</td>';
+   // result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>';
+  //  result += '      <td class="card-stats-cell">' + stats[1] + mods[1] + '</td>';
+   // result += '      <td class="card-stats-cell">' + stats[2] + mods[2] + '</td>';
+  //  result += '      <td class="card-stats-cell">' + stats[3] + mods[3] + '</td>';
+  //  result += '      <td class="card-stats-cell">' + stats[4] + mods[4] + '</td>';
+  //  result += '      <td class="card-stats-cell">' + stats[5] + mods[5] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[0] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[1] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[2] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[3] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[4] + '</td>';
+    result += '      <td class="card-stats-cell">' + mods[5] + '</td>';
     result += '    </tr>';
     result += '  </tbody>';
     result += '</table>';
@@ -283,7 +303,8 @@ var card_element_generators = {
     section: card_element_section,
     disabled: card_element_empty,
     picture: card_element_picture,
-    icon: card_element_inline_icon
+    icon: card_element_inline_icon,
+    contenticon: card_element_contenticon
 };
 
 // ============================================================================
@@ -319,6 +340,11 @@ function card_repeat(card, count) {
 function card_generate_color_style(color, options) {
     return 'style="color:' + color + '; border-color:' + color + '; background-color:' + color + '"';
 }
+
+function card_generate_textcolor_style(color, options) {
+    return 'style="color:' + color +  '"';
+}
+
 
 function card_generate_color_gradient_style(color, options) {
     return 'style="background: radial-gradient(ellipse at center, white 20%, ' + color + ' 120%)"';
