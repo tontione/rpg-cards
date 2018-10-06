@@ -216,6 +216,9 @@ function card_element_justify(params, card_data, options) {
     return result;
 }
 
+
+
+//card-data : 5 premieres valeur = 'FOR','DEX','CON','INT','SAG','CHA', 6e et 7e (optionnelles) = position des caracs supérieures
 function card_element_dndstats(params, card_data, options) {
     var stats = [10, 10, 10, 10, 10, 10];
     var mods = [0,0,0,0,0,0];
@@ -231,18 +234,28 @@ function card_element_dndstats(params, card_data, options) {
        mods[i] = "&nbsp;" + mod + "";
     }
 
+    let caracs = ['FOR','DEX','CON','INT','SAG','CHA'];
+
+    if (params[5]) {
+        caracs[params[5]-1]+='*';
+    }
+
+    if (params[6]) {
+        caracs[params[6]-1]+='*';
+    }
+
     var result = "";
     result += '<table class="card-stats">';
     result += '    <tbody><tr>';
-    result += '      <th class="card-stats-header">FOR</th>';
-    result += '      <th class="card-stats-header">DEX</th>';
-    result += '      <th class="card-stats-header">CON</th>';
-    result += '      <th class="card-stats-header">INT</th>';
-    result += '      <th class="card-stats-header">SAG</th>';
-    result += '      <th class="card-stats-header">CHA</th>';
+    result += '      <th class="card-stats-header">'+ caracs[0] +'</th>';
+    result += '      <th class="card-stats-header">'+ caracs[1] +'</th>';
+    result += '      <th class="card-stats-header">'+ caracs[2] +'</th>';
+    result += '      <th class="card-stats-header">'+ caracs[3] +'</th>';
+    result += '      <th class="card-stats-header">'+ caracs[4] +'</th>';
+    result += '      <th class="card-stats-header">'+ caracs[5] +'</th>';
     result += '    </tr>';
     result += '    <tr>';
-   // result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>';
+   // result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>'; 
   //  result += '      <td class="card-stats-cell">' + stats[1] + mods[1] + '</td>';
    // result += '      <td class="card-stats-cell">' + stats[2] + mods[2] + '</td>';
   //  result += '      <td class="card-stats-cell">' + stats[3] + mods[3] + '</td>';
