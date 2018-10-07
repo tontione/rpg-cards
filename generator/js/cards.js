@@ -114,8 +114,11 @@ function card_element_inline_icon(params, card_data, options) {
     var icon = params[0] || "";
     var size = params[1] || "40";
     var align = params[2] || "center";
-    var color = card_data_color_front(card_data, options);
-    return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + '"></div>';
+    let  rotation = params[4] || "";
+    let stringRotation = rotation ? "-webkit-transform: rotate("+ rotation +"deg);   -moz-transform: rotate("+ rotation +"deg);   -ms-transform: rotate("+ rotation +"deg); -o-transform: rotate("+ rotation +"deg);    transform: rotate("+ rotation +"deg)" : "";
+    var color = params[3] || card_data_color_front(card_data, options);
+
+    return '<div class="card-element card-inline-icon align-' + align + ' icon-' + icon + '" style ="height:' + size + 'px;min-height:' + size + 'px;width: ' + size + 'px;background-color: ' + color + ';'+stringRotation+'"></div>';
 }
 
 function card_element_contenticon(params, card_data, options) {
@@ -299,6 +302,15 @@ function card_element_unknown(params, card_data, options) {
 function card_element_empty(params, card_data, options) {
     return '';
 }
+function card_element_startcontainer(params, card_data, options) {
+    let align = params[0] || "column";
+    return '<div style="display: -webkit-flex; display: flex; -webkit-flex-direction: '+ align +'; flex-direction: '+ align +'">';
+}
+
+function card_element_endcontainer(params, card_data, options) {
+    let align = params[0] || "column";
+    return '</div >';
+}
 
 var card_element_generators = {
     subtitle: card_element_subtitle,
@@ -317,7 +329,9 @@ var card_element_generators = {
     disabled: card_element_empty,
     picture: card_element_picture,
     icon: card_element_inline_icon,
-    contenticon: card_element_contenticon
+    contenticon: card_element_contenticon,
+    startcontainer: card_element_startcontainer,
+    endcontainer: card_element_endcontainer
 };
 
 // ============================================================================
