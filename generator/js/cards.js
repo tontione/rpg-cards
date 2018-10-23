@@ -239,12 +239,12 @@ function card_element_dndstats(params, card_data, options) {
 
     let caracs = ['FOR','DEX','CON','INT','SAG','CHA'];
 
-    if (params[5]) {
-        caracs[params[5]-1]+='*';
-    }
-
     if (params[6]) {
         caracs[params[6]-1]+='*';
+    }
+
+    if (params[7]) {
+        caracs[params[7]-1]+='*';
     }
 
     var result = "";
@@ -258,7 +258,7 @@ function card_element_dndstats(params, card_data, options) {
     result += '      <th class="card-stats-header">'+ caracs[5] +'</th>';
     result += '    </tr>';
     result += '    <tr>';
-   // result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>'; 
+   // result += '      <td class="card-stats-cell">' + stats[0] + mods[0] + '</td>';
   //  result += '      <td class="card-stats-cell">' + stats[1] + mods[1] + '</td>';
    // result += '      <td class="card-stats-cell">' + stats[2] + mods[2] + '</td>';
   //  result += '      <td class="card-stats-cell">' + stats[3] + mods[3] + '</td>';
@@ -400,7 +400,7 @@ function card_generate_back(data, options) {
 	{
 		background_style = 'style = "background-image: url(&quot;' + url + '&quot;); background-size: contain; background-position: center; background-repeat: no-repeat;"';
 	}
-	else 
+	else
 	{
 		background_style = card_generate_color_gradient_style(color, options);
     }
